@@ -1,0 +1,20 @@
+
+
+spring:
+  datasource:
+    password: BxF3ef0AKEEXJi6dQq2g
+    url: jdbc:postgresql://containers-us-west-187.railway.app:7066/railway
+    username: postgres
+  jackson:
+    default-property-inclusion: non_null
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+server:
+  port: 8089
+
+
+springdoc:
+  swagger-ui.path: /swagger-ui.html
+  pathsToMatch: api/v1/**
