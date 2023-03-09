@@ -1,20 +1,53 @@
-
-
 spring:
   datasource:
     password: BxF3ef0AKEEXJi6dQq2g
-    url: jdbc:postgresql://containers-us-west-187.railway.app:7066/railway
+    url: jdbc:postgresql://containers-us-west-187.railway.app:7066/railway?stringtype=unspecified
     username: postgres
   jackson:
     default-property-inclusion: non_null
-
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
   jpa:
     hibernate:
       ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+          batch_size: 25
+        show_sql: true
+      hibernate.cache.use_second_level_cache: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 484087272547-6ig18d7gb6mt0cnbj14k94ua34r4ipci.apps.googleusercontent.com
+            client-secret: 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
+
 server:
   port: 8089
 
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: trace
+      springframework:
+        orm:
+          jpa: info
+        transaction: info
 
-springdoc:
-  swagger-ui.path: /swagger-ui.html
-  pathsToMatch: api/v1/**
+application:
+  google-client-id: 484087272547-6ig18d7gb6mt0cnbj14k94ua34r4ipci.apps.googleusercontent.com
+  jwt:
+    base64-secret: MjkwN2M1MTJmNzY1YmJmYWQ0ZjE0MzZlYTE3MTlmYTEwZGQwZGU4ZDEyOWFmYzM2MWNmYThkZTMzOGM1ZjYxMDcwNDIzYmM4MzAxZmUwZGUxMGM1YTUzY2ZmZjhkY2FiYmFhM2VkYWI5ZDUzMmM3NWJkN2ViNWExYTIwY2RmY2E=
+    # Token is valid 24 hours
+    token-validity-in-seconds: 86400
+
