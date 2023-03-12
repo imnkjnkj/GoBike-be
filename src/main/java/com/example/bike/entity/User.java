@@ -45,7 +45,7 @@ public class User extends AbstractAuditingEntity {
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new LinkedHashSet<>();
+    private Set<Role> roles;
 
 
     public UserLogin toUserLogin() {

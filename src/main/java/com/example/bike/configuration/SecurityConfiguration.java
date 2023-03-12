@@ -52,7 +52,7 @@ public class SecurityConfiguration {
                 .requestMatchers("oauth2/**").permitAll()
                 .requestMatchers(Constant.VERSION_1+"/user/authenticate").permitAll()
                 .requestMatchers(Constant.VERSION_1+"/user/**").authenticated()
-                .requestMatchers(Constant.VERSION_1+"/news/**").authenticated()
+                .requestMatchers(Constant.VERSION_1+"/news").permitAll()
                 .requestMatchers(Constant.VERSION_1+"/category/**").authenticated()
             .and()
                 .httpBasic()

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class NewsController {
     private final NewsService newsService;
 
-    @GetMapping("/")
+    @GetMapping
     public Page<NewsDto> getAll(
             @ParameterObject
             @PageableDefault(page = 0, size = 5)
