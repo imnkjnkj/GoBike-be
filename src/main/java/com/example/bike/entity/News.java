@@ -37,4 +37,13 @@ public class News extends AbstractAuditingEntity{
     @Enumerated(EnumType.STRING)
     private NewsStatus status = NewsStatus.DRAFT;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
 }

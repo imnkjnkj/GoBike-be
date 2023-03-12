@@ -12,9 +12,6 @@ public class BadRequestException extends ErrorResponseException {
     }
 
     private static ProblemDetail asProblemDetail(String message) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, message);
-        problemDetail.setTitle("Bad request");
-        problemDetail.setType(URI.create("https://api.gobike.com/errors/bad-request"));
-        return problemDetail;
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, message);
     }
 }

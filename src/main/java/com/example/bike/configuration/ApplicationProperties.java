@@ -1,23 +1,17 @@
 package com.example.bike.configuration;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 
-@Getter
-@Setter
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
-public class ApplicationProperties {
-    private String googleClientId;
-    private Jwt jwt;
-
-    @Getter
-    @Setter
-    public static class Jwt {
-        private String base64secret;
-        private long tokenValidityInSeconds;
-    }
+public record ApplicationProperties(
+        String googleClientId,
+        @NestedConfigurationProperty Jwt jwt
+) {
+    public record Jwt(String base64secret, long tokenValidityInSeconds) {}
 }
+
+
 
 

@@ -42,6 +42,7 @@ public class CacheConfiguration {
         return cm -> {
             createCache(cm, com.example.bike.entity.User.class.getName());
             createCache(cm, com.example.bike.entity.Role.class.getName());
+            createCache(cm, com.example.bike.entity.Category.class.getName());
             createCache(cm, UserRepository.USER_BY_EMAIL_CACHE);
             createCache(cm, roleRepository.ROLE_BY_NAME_CACHE);
         };

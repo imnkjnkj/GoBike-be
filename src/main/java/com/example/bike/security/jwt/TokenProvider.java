@@ -38,7 +38,7 @@ public class TokenProvider {
 
     public TokenProvider(ApplicationProperties properties) {
         this.properties = properties;
-        byte[] keyBytes = Decoders.BASE64.decode(properties.getJwt().getBase64secret());
+        byte[] keyBytes = Decoders.BASE64.decode(properties.jwt().base64secret());
         key = Keys.hmacShaKeyFor(keyBytes);
         jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
     }
@@ -53,7 +53,7 @@ public class TokenProvider {
             userId = userLogin.getId();
         }
         Date validity = Date.from(
-                Instant.now().plusSeconds(this.properties.getJwt().getTokenValidityInSeconds())
+                Instant.now().plusSeconds(this.properties.jwt().tokenValidityInSeconds())
         );
         return Jwts
                 .builder()

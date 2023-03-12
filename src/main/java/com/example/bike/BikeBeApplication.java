@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConf
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@SpringBootApplication(exclude = ErrorMvcAutoConfiguration.class)
+@SpringBootApplication
 @EnableConfigurationProperties({ApplicationProperties.class})
 @EnableJpaAuditing
 public class BikeBeApplication {

@@ -53,21 +53,10 @@ public class SecurityConfiguration {
                 .requestMatchers("oauth2/**").permitAll()
                 .requestMatchers(Constant.VERSION_1+"/user/authenticate").permitAll()
                 .requestMatchers(Constant.VERSION_1+"/user/**").authenticated()
+                .requestMatchers(Constant.VERSION_1+"/news/**").authenticated()
+                .requestMatchers(Constant.VERSION_1+"/category/**").authenticated()
             .and()
                 .httpBasic()
-//            .and()
-//                .oauth2Login()
-//                    .authorizationEndpoint()
-//                        .authorizationRequestRepository(cookieAuthorizationRequestRepository())
-//                .and()
-//                    .redirectionEndpoint()
-//                .and()
-//                    .userInfoEndpoint()
-//                        .oidcUserService(customOidcUserService)
-//                        .userService(customOAuth2UserService)
-//                .and()
-//                    .successHandler(oAuth2AuthenticationSuccessHandler)
-//                    .failureHandler(oAuth2AuthenticationFailureHandler)
             .and()
                 .oauth2Client()
             .and()
@@ -80,13 +69,9 @@ public class SecurityConfiguration {
         return new JWTConfigurer(tokenProvider);
     }
 
-    public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
-        return new HttpCookieOAuth2AuthorizationRequestRepository();
-    }
-
     public AccessDeniedHandler accessDeniedHandler() {
         return (request, response, accessDeniedException) ->
-                response.sendError(HttpStatus.FORBIDDEN.value(), "No right permission to access resource");
+                response.sendError(HttpStatus.FORBIDDEN.value(), accessDeniedException.getMessage());
     }
 
     public AuthenticationEntryPoint restAuthenticationEntryPoint() {

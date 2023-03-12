@@ -22,10 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping(Constant.VERSION_1 + "/user")
 public class UserController {
-    private final UserService userService;
     private final SocialLoginService socialLoginService;
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
 
     @PostMapping("/authenticate")
     public ResponseEntity<JwtTokenDTO> socialLogin(@RequestBody @Valid JwtTokenDTO payload) {
