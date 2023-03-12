@@ -4,15 +4,16 @@ import com.example.bike.dto.JwtTokenDTO;
 import com.example.bike.entity.Role;
 import com.example.bike.entity.User;
 import com.example.bike.enumeration.RoleName;
+import com.example.bike.exception.BadRequestException;
 import com.example.bike.exception.GenericNotFoundException;
 import com.example.bike.repository.RoleRepository;
 import com.example.bike.repository.UserRepository;
-import com.example.bike.security.OAuth2AuthenticationProcessingException;
 import com.example.bike.security.UserLogin;
 import com.example.bike.security.jwt.JWTFilter;
 import com.example.bike.security.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +23,7 @@ import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.Map;
 import java.util.Optional;
@@ -45,10 +47,13 @@ public class SocialLoginService {
                 .uri(googleClient.getProviderDetails().getUserInfoEndpoint().getUri())
                 .headers(headers -> headers.setBearerAuth(token))
                 .retrieve()
+                .onStatus(HttpStatusCode::isError, res -> res.bodyToMono(Map.class)
+                        .flatMap(error -> Mono.error(new BadRequestException(error.toString()))))
                 .bodyToMono(Map.class)
                 .block();
+        if (attributes == null || attributes.isEmpty()) throw new BadRequestException("Invalid token");
         String email = Optional.ofNullable((String) attributes.get("email"))
-                .orElseThrow(() -> new OAuth2AuthenticationProcessingException("Email not found"));
+                .orElseThrow(() -> new GenericNotFoundException("Email not found"));
         Optional<User> userOptional = userRepository.findOneByEmail(email);
         UserLogin userLogin;
         if (userOptional.isEmpty()) {

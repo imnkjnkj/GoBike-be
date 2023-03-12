@@ -1,6 +1,5 @@
 package com.example.bike.configuration;
 
-import com.example.bike.security.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.example.bike.security.jwt.JWTConfigurer;
 import com.example.bike.security.jwt.TokenProvider;
 import com.example.bike.utils.Constant;
