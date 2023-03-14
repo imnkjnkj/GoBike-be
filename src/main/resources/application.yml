@@ -41,4 +41,12 @@ application:
     base64-secret: MjkwN2M1MTJmNzY1YmJmYWQ0ZjE0MzZlYTE3MTlmYTEwZGQwZGU4ZDEyOWFmYzM2MWNmYThkZTMzOGM1ZjYxMDcwNDIzYmM4MzAxZmUwZGUxMGM1YTUzY2ZmZjhkY2FiYmFhM2VkYWI5ZDUzMmM3NWJkN2ViNWExYTIwY2RmY2E=
     # Token is valid 24 hours
     token-validity-in-seconds: 86400
+  amazon:
+    access-key: AKIAYVQBWNKWUHLAHIAT
+    secret-key: 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
+    bucket-name: go-bike
+    region: ap-southeast-1
+    bucket-url: https://go-bike.s3.ap-southeast-1.amazonaws.com
+
+
 
