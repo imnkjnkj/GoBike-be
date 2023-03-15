@@ -52,7 +52,7 @@ public class SecurityConfiguration {
                 .requestMatchers("oauth2/**").permitAll()
                 .requestMatchers(Constant.VERSION_1+"/user/authenticate").permitAll()
                 .requestMatchers(Constant.VERSION_1+"/user/login").permitAll()
-                .requestMatchers(Constant.VERSION_1+"/user/**").permitAll()
+                .requestMatchers(Constant.VERSION_1+"/user/info").authenticated()
                 .requestMatchers(Constant.VERSION_1+"/news").permitAll()
                 .requestMatchers(Constant.VERSION_1+"/upload/**").authenticated()
                 .requestMatchers(Constant.VERSION_1+"/category/**").authenticated()
