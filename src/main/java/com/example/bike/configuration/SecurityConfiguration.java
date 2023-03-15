@@ -56,14 +56,13 @@ public class SecurityConfiguration {
                 .requestMatchers(Constant.VERSION_1+"/news").permitAll()
                 .requestMatchers(Constant.VERSION_1+"/upload/**").authenticated()
                 .requestMatchers(Constant.VERSION_1+"/category/**").authenticated()
+                .anyRequest().permitAll()
             .and()
                 .httpBasic()
             .and()
                 .oauth2Client()
             .and()
-                .apply(jwtConfigurerAdapter())
-            .and()
-                .oauth2ResourceServer().jwt();
+                .apply(jwtConfigurerAdapter());
         return http.build();
         // @formatter:on
     }
