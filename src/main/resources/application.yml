@@ -26,6 +26,9 @@ spring:
           google:
             client-id: 484087272547-6ig18d7gb6mt0cnbj14k94ua34r4ipci.apps.googleusercontent.com
             client-secret: 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
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_gGZw6SOm5
 
 server:
   port: 8089
@@ -47,6 +50,9 @@ application:
     bucket-name: go-bike
     region: ap-southeast-1
     bucket-url: https://go-bike.s3.ap-southeast-1.amazonaws.com
+    user-pool-id: ap-southeast-1_gGZw6SOm5
+    client-id: 44n1ms9g0333lrgfqtmk719vnc
+    client-secret: 43diu0s8ql5rug2be9jmo60s8sdvlklki06gv9q0fhscqk94d2d
 
 
 

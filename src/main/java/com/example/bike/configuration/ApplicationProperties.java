@@ -12,7 +12,8 @@ public record ApplicationProperties(
 ) {
     public record Jwt(String base64secret, long tokenValidityInSeconds) {}
 
-    public record Amazon(String accessKey, String secretKey, String bucketName, String region, String bucketUrl){}
+    public record Amazon(String accessKey, String secretKey, String bucketName,
+                         String region, String bucketUrl, String userPoolId, String clientId, String clientSecret){}
 }
 
 

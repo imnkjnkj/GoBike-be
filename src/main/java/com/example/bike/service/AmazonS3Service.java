@@ -1,16 +1,13 @@
 package com.example.bike.service;
 
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.example.bike.configuration.ApplicationProperties;
 import com.example.bike.exception.BadRequestException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,31 +17,19 @@ import java.util.Set;
 import static org.apache.http.entity.ContentType.*;
 
 @Service
+@RequiredArgsConstructor
 public class AmazonS3Service {
 
     public static final String IMAGE = "/image";
     private final ApplicationProperties properties;
     private final AmazonS3 amazonS3;
-    private final Set<String> imageType;
-
-    public AmazonS3Service(ApplicationProperties properties) {
-        this.properties = properties;
-        AWSCredentials awsCredentials = new BasicAWSCredentials(
-                this.properties.amazon().accessKey(),
-                this.properties.amazon().secretKey()
-        );
-        this.amazonS3 = AmazonS3ClientBuilder
-                .standard()
-                .withRegion(this.properties.amazon().region())
-                .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                .build();
-        imageType = Set.of(
-                IMAGE_PNG.getMimeType(),
-                IMAGE_BMP.getMimeType(),
-                IMAGE_GIF.getMimeType(),
-                IMAGE_JPEG.getMimeType()
-        );
-    }
+    private final Set<String> imageType = Set.of(
+            IMAGE_PNG.getMimeType(),
+            IMAGE_BMP.getMimeType(),
+            IMAGE_GIF.getMimeType(),
+            IMAGE_JPEG.getMimeType()
+    );
+    ;
 
     public String uploadImage(MultipartFile file) {
         if (file.isEmpty()) throw new BadRequestException("Invalid Image");

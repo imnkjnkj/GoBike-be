@@ -51,7 +51,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/v3/api-docs/**").permitAll()
                 .requestMatchers("oauth2/**").permitAll()
                 .requestMatchers(Constant.VERSION_1+"/user/authenticate").permitAll()
-                .requestMatchers(Constant.VERSION_1+"/user/**").authenticated()
+                .requestMatchers(Constant.VERSION_1+"/user/login").permitAll()
                 .requestMatchers(Constant.VERSION_1+"/news").permitAll()
                 .requestMatchers(Constant.VERSION_1+"/upload/**").authenticated()
                 .requestMatchers(Constant.VERSION_1+"/category/**").authenticated()
@@ -60,7 +60,9 @@ public class SecurityConfiguration {
             .and()
                 .oauth2Client()
             .and()
-                .apply(jwtConfigurerAdapter());
+                .apply(jwtConfigurerAdapter())
+            .and()
+                .oauth2ResourceServer().jwt();
         return http.build();
         // @formatter:on
     }

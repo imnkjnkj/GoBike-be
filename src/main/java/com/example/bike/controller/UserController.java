@@ -1,14 +1,10 @@
 package com.example.bike.controller;
 
-import com.example.bike.dto.JwtTokenDTO;
-import com.example.bike.dto.RoleDto;
-import com.example.bike.dto.UserDto;
+import com.example.bike.dto.*;
 import com.example.bike.enumeration.RoleName;
-import com.example.bike.repository.RoleRepository;
-import com.example.bike.repository.UserRepository;
 import com.example.bike.security.UserLogin;
+import com.example.bike.service.AmazonCognitoService;
 import com.example.bike.service.SocialLoginService;
-import com.example.bike.service.UserService;
 import com.example.bike.utils.Constant;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +19,7 @@ import java.util.stream.Collectors;
 @RequestMapping(Constant.VERSION_1 + "/user")
 public class UserController {
     private final SocialLoginService socialLoginService;
+    private final AmazonCognitoService amazonCognitoService;
 
     @PostMapping("/authenticate")
     public ResponseEntity<JwtTokenDTO> socialLogin(@RequestBody @Valid JwtTokenDTO payload) {
@@ -39,6 +36,11 @@ public class UserController {
                         .stream().map(a -> new RoleDto(RoleName.valueOf(a.getAuthority())))
                         .collect(Collectors.toSet())
         );
+    }
+
+    @PostMapping("/login")
+    public AwsSignInResponseDTO login(@RequestBody AwsSignInRequestDTO requestDTO) {
+        return amazonCognitoService.login(requestDTO);
     }
 }
 
