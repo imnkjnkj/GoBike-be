@@ -1,7 +1,7 @@
 spring:
   datasource:
-    password: BxF3ef0AKEEXJi6dQq2g
-    url: jdbc:postgresql://containers-us-west-187.railway.app:7066/railway?stringtype=unspecified
+    password: 123456
+    url: jdbc:postgresql://3.27.106.113:5432/postgres?stringtype=unspecified
     username: postgres
   jackson:
     default-property-inclusion: non_null
@@ -9,6 +9,8 @@ spring:
     jpa:
       repositories:
         bootstrap-mode: deferred
+  flyway:
+    baseline-on-migrate: true
   jpa:
     hibernate:
       ddl-auto: none
@@ -53,6 +55,14 @@ application:
     user-pool-id: ap-southeast-1_gGZw6SOm5
     client-id: 44n1ms9g0333lrgfqtmk719vnc
     client-secret: 43diu0s8ql5rug2be9jmo60s8sdvlklki06gv9q0fhscqk94d2d
+  cors:
+    allowed-origins: 'http://localhost:8100,http://localhost:4200,https://localhost:4200'
+    allowed-origin-patterns: 'https://*.githubpreview.dev'
+    allowed-methods: '*'
+    allowed-headers: '*'
+    exposed-headers: 'Authorization,Link,X-Total-Count'
+    allow-credentials: true
+    max-age: 1800
 
 
 

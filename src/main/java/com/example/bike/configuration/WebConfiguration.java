@@ -1,32 +1,35 @@
-    package com.example.bike.configuration;
+package com.example.bike.configuration;
 
+import com.example.bike.utils.Constant;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.FormatterRegistry;
-import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  * Configure the converters to use the ISO format for dates by default.
  */
 @Configuration
-public class WebConfiguration implements WebMvcConfigurer {
+@RequiredArgsConstructor
+public class WebConfiguration {
+    private final ApplicationProperties properties;
 
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
-        registrar.setUseIsoFormat(true);
-        registrar.registerFormatters(registry);
-    }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8100")
-                .allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE");
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration cors = properties.cors();
+        if (!CollectionUtils.isEmpty(cors.getAllowedOrigins()) || !CollectionUtils.isEmpty(cors.getAllowedOriginPatterns())) {
+            source.registerCorsConfiguration(Constant.VERSION_1 + "/**", cors);
+            source.registerCorsConfiguration("/management/**", cors);
+            source.registerCorsConfiguration("/v3/api-docs", cors);
+            source.registerCorsConfiguration("/swagger-ui/**", cors);
+        }
+        return new CorsFilter(source);
     }
 
     @Bean

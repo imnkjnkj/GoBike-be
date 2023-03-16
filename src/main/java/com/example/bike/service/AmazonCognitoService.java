@@ -13,6 +13,8 @@ import com.example.bike.exception.BadRequestException;
 import com.example.bike.mapper.CognitoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.Mac;
@@ -27,6 +29,7 @@ public class AmazonCognitoService {
     private final ApplicationProperties properties;
     private final AWSCognitoIdentityProvider cognitoIdentityProvider;
     private final CognitoMapper cognitoMapper;
+    private final JwtDecoder jwtDecoder;
 
 
     public AwsSignInResponseDTO login(AwsSignInRequestDTO awsSignInRequestDTO) {
@@ -43,6 +46,8 @@ public class AmazonCognitoService {
         try {
             AdminInitiateAuthResult adminInitiateAuthResult = this.cognitoIdentityProvider.adminInitiateAuth(adminInitiateAuthRequest);
             log.info("Challenge Name is {}", adminInitiateAuthResult.getChallengeName());
+            Jwt decode = jwtDecoder.decode(adminInitiateAuthResult.getAuthenticationResult().getIdToken());
+            Jwt decode1 = jwtDecoder.decode(adminInitiateAuthResult.getAuthenticationResult().getAccessToken());
             return cognitoMapper.toDto(adminInitiateAuthResult.getAuthenticationResult());
         } catch (AWSCognitoIdentityProviderException e) {
             throw new BadRequestException("Login cognito fail:" + e.getMessage());

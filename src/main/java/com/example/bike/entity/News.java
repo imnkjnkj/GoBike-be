@@ -33,6 +33,9 @@ public class News extends AbstractAuditingEntity{
     @Column(name = "cover_image", length = Integer.MAX_VALUE)
     private String coverImage;
 
+    @Column(name = "sapo")
+    private String sapo;
+
     @Column(name = "status", columnDefinition = "news_status not null")
     @Enumerated(EnumType.STRING)
     private NewsStatus status = NewsStatus.DRAFT;

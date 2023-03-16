@@ -13,7 +13,7 @@ CREATE TYPE "news_status" AS ENUM (
 CREATE TABLE "user" (
                         "id" serial PRIMARY KEY,
                         "username" text NOT NULL,
-                        "email" text NOT NULL,
+                        "email" text NOT NULL unique ,
                         "password" text NOT NULL,
                         "created_at" timestamp DEFAULT (now()),
                         "created_by" int,
@@ -40,6 +40,7 @@ CREATE TABLE "news" (
                         "status" news_status NOT NULL DEFAULT 'DRAFT',
                         "thumbnail" text,
                         "cover_image" text,
+                        "sapo" text,
                         "user_id" int,
                         "created_at" timestamp DEFAULT (now()),
                         "created_by" int,
