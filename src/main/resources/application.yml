@@ -1,7 +1,7 @@
 spring:
   datasource:
-    password: 123456
-    url: jdbc:postgresql://3.27.106.113:5432/postgres?stringtype=unspecified
+    password: 12345678
+    url: jdbc:postgresql://gobike.cbjfj1cwcg0u.ap-southeast-2.rds.amazonaws.com:5432/postgres?stringtype=unspecified
     username: postgres
   jackson:
     default-property-inclusion: non_null
