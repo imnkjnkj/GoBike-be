@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.SQLDelete;
 
 import java.time.Instant;
@@ -12,6 +13,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
+@Accessors(chain = true)
 @Table(name = "news")
 public class News extends AbstractAuditingEntity{
     @Id

@@ -29,7 +29,6 @@ public class AmazonS3Service {
             IMAGE_GIF.getMimeType(),
             IMAGE_JPEG.getMimeType()
     );
-    ;
 
     public String uploadImage(MultipartFile file) {
         if (file.isEmpty()) throw new BadRequestException("Invalid Image");

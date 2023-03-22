@@ -5,6 +5,9 @@ spring:
     username: postgres
   jackson:
     default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: true
+      write-date-timestamps-as-nanoseconds: false
   data:
     jpa:
       repositories:
@@ -39,6 +42,8 @@ logging:
   level:
     sql: debug
     org.hibernate.orm.jdbc.bind: trace
+  file:
+    path: /logs
 
 application:
   google-client-id: 484087272547-6ig18d7gb6mt0cnbj14k94ua34r4ipci.apps.googleusercontent.com

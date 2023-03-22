@@ -2,10 +2,7 @@ package com.example.bike.service;
 
 
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
-import com.amazonaws.services.cognitoidp.model.AWSCognitoIdentityProviderException;
-import com.amazonaws.services.cognitoidp.model.AdminInitiateAuthRequest;
-import com.amazonaws.services.cognitoidp.model.AdminInitiateAuthResult;
-import com.amazonaws.services.cognitoidp.model.AuthFlowType;
+import com.amazonaws.services.cognitoidp.model.*;
 import com.example.bike.configuration.ApplicationProperties;
 import com.example.bike.dto.AwsSignInRequestDTO;
 import com.example.bike.dto.AwsSignInResponseDTO;
@@ -53,6 +50,7 @@ public class AmazonCognitoService {
             throw new BadRequestException("Login cognito fail:" + e.getMessage());
         }
     }
+
 
     public static String calculateSecretHash(String userPoolClientId, String userPoolClientSecret, String userName) {
         final String HMAC_SHA256_ALGORITHM = "HmacSHA256";

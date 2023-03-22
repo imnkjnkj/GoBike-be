@@ -12,10 +12,10 @@ public final class SecurityUtil {
         return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
-    public static Optional<Integer> getCurrentUserId(){
+    public static Optional<Integer> getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication.getPrincipal() instanceof UserLogin)
-            return Optional.ofNullable(((UserLogin) authentication.getPrincipal()).getId());
+        if (authentication.getPrincipal() instanceof UserLogin userLogin)
+            return Optional.ofNullable(userLogin.getId());
         return Optional.empty();
     }
 

@@ -15,9 +15,9 @@ CREATE TABLE "user" (
                         "username" text NOT NULL,
                         "email" text NOT NULL unique ,
                         "password" text NOT NULL,
-                        "created_at" timestamp DEFAULT (now()),
+                        "created_at" timestamp with time zone DEFAULT (now()),
                         "created_by" int,
-                        "updated_at" timestamp,
+                        "updated_at" timestamp with time zone,
                         "updated_by" int,
                         "deleted" boolean DEFAULT false
 );
@@ -42,9 +42,9 @@ CREATE TABLE "news" (
                         "cover_image" text,
                         "sapo" text,
                         "user_id" int,
-                        "created_at" timestamp DEFAULT (now()),
+                        "created_at" timestamp with time zone DEFAULT (now()),
                         "created_by" int,
-                        "updated_at" timestamp,
+                        "updated_at" timestamp with time zone,
                         "updated_by" int,
                         "deleted" boolean DEFAULT false
 );
