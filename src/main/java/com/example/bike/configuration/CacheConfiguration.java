@@ -19,9 +19,8 @@ import java.time.Duration;
 @EnableCaching
 public class CacheConfiguration {
     private final javax.cache.configuration.Configuration<Object, Object> jcacheConfiguration;
-    private final RoleRepository roleRepository;
 
-    public CacheConfiguration(RoleRepository roleRepository) {
+    public CacheConfiguration() {
         jcacheConfiguration =
                 Eh107Configuration.fromEhcacheCacheConfiguration(
                         CacheConfigurationBuilder
@@ -29,7 +28,6 @@ public class CacheConfiguration {
                                 .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(3600)))
                                 .build()
                 );
-        this.roleRepository = roleRepository;
     }
 
     @Bean
@@ -44,7 +42,7 @@ public class CacheConfiguration {
             createCache(cm, com.example.bike.entity.Role.class.getName());
             createCache(cm, com.example.bike.entity.Category.class.getName());
             createCache(cm, UserRepository.USER_BY_EMAIL_CACHE);
-            createCache(cm, roleRepository.ROLE_BY_NAME_CACHE);
+            createCache(cm, RoleRepository.ROLE_BY_NAME_CACHE);
         };
     }
 

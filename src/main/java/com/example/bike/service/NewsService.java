@@ -1,8 +1,6 @@
 package com.example.bike.service;
 
 import com.example.bike.dto.NewsDto;
-import com.example.bike.entity.News;
-import com.example.bike.entity.User;
 import com.example.bike.exception.GenericNotFoundException;
 import com.example.bike.mapper.NewsMapper;
 import com.example.bike.repository.CategoryRepository;
@@ -12,11 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class NewsService {
     private final NewsRepository newsRepository;
     private final CategoryRepository categoryRepository;
@@ -28,28 +26,28 @@ public class NewsService {
                 .map(newsMapper::toDto);
     }
 
+    @Transactional
     public NewsDto create(NewsDto newsDto, Integer userId) {
         var news = newsMapper.toEntity(newsDto)
-                .setCategory(categoryRepository.findById(newsDto.category().id())
-                        .orElseThrow(() -> new GenericNotFoundException("Category " + newsDto.category().id())))
-                .setUser(userRepository.findById(userId)
-                        .orElseThrow(() -> new GenericNotFoundException("User " + userId)));
-        return newsMapper.toDto(newsRepository.save(news));
+                .setCategory(categoryRepository.getReferenceById(newsDto.category().id()))
+                .setUser(userRepository.getReferenceById(userId));
+        return newsMapper.toDto(newsRepository.persist(news));
     }
 
+
+    @Transactional
     public NewsDto update(Integer id, NewsDto newsDto) {
-        var news = newsMapper.partialUpdate(newsDto,
-                        newsRepository.findById(id).orElseThrow(() -> new GenericNotFoundException("News " + id)))
-                .setCategory(categoryRepository.findById(newsDto.category().id())
-                                .orElseThrow(() -> new GenericNotFoundException("Category " + newsDto.category().id())));
-        return newsMapper.toDto(newsRepository.save(news));
+        return newsRepository.findById(id)
+                .map(news -> {
+                    newsMapper
+                            .partialUpdate(newsDto, news)
+                            .setCategory(categoryRepository.getReferenceById(newsDto.category().id()));
+                    return newsDto;
+                })
+                .orElseThrow(() -> new GenericNotFoundException("News " + id));
     }
 
     public void delete(Integer id) {
-        newsRepository.findById(id)
-                .ifPresent(news -> {
-                    news.setDeleted(true);
-                    newsRepository.save(news);
-                });
+        newsRepository.findById(id).ifPresent(news -> news.setDeleted(true));
     }
 }

@@ -57,6 +57,7 @@ public class SecurityConfiguration {
                 .requestMatchers(Constant.VERSION_1+"/news").authenticated()
                 .requestMatchers(Constant.VERSION_1+"/upload/**").authenticated()
                 .requestMatchers(Constant.VERSION_1+"/category/**").authenticated()
+                .requestMatchers(Constant.VERSION_1+"/bicycle/**").permitAll()
                 .anyRequest().permitAll()
             .and()
                 .httpBasic()

@@ -11,7 +11,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.util.List;
 
-@RestControllerAdvice
 class NoContentControllerAdvice implements ResponseBodyAdvice<List<?>> {
 
     @Override

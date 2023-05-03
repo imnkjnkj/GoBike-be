@@ -2,6 +2,7 @@ package com.example.bike.exception;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.*;
 import org.springframework.validation.FieldError;
 import org.springframework.web.ErrorResponse;
@@ -19,6 +20,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(GenericNotFoundException.class)
     public ErrorResponse handleGenericNotFoundException(GenericNotFoundException e) {
         return ErrorResponse.builder(e, HttpStatus.NOT_FOUND, e.getMessage() + " not found").build();
+    }
+
+    @ExceptionHandler(DataAccessException.class)
+    public ErrorResponse handleDataAccessException(DataAccessException e) {
+        return ErrorResponse.builder(e, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage()).build();
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

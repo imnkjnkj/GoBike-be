@@ -1,14 +1,22 @@
 package com.example.bike.entity;
 
 import com.example.bike.enumeration.NewsStatus;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.SQLDelete;
-
-import java.time.Instant;
 
 @Getter
 @Setter
@@ -17,7 +25,8 @@ import java.time.Instant;
 @Table(name = "news")
 public class News extends AbstractAuditingEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "news_generator")
+    @SequenceGenerator(name = "news_generator", sequenceName = "news_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Integer id;
 

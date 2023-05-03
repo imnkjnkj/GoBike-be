@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "Category", description = "Category of news")
 @RestController
@@ -35,7 +36,7 @@ public class CategoryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryDto create(@RequestBody @Valid CategoryDto categoryDto){
+    public Optional<CategoryDto> create(@RequestBody @Valid CategoryDto categoryDto){
         return categoryService.create(categoryDto);
     }
 

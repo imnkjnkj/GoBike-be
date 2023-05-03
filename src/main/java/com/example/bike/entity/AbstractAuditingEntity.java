@@ -3,6 +3,7 @@ package com.example.bike.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -18,6 +19,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @MappedSuperclass
+@Accessors(chain = true)
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -38,5 +40,6 @@ public abstract class AbstractAuditingEntity implements Serializable {
     @LastModifiedBy
     private Integer updatedBy;
     @Column(name = "deleted")
+    @Builder.Default
     private Boolean deleted = Boolean.FALSE;
 }

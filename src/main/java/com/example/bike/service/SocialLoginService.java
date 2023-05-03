@@ -22,6 +22,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -40,6 +41,7 @@ public class SocialLoginService {
     private final WebClient.Builder oauth2WebClient;
     private final PasswordEncoder passwordEncoder;
 
+    @SuppressWarnings (value="unchecked")
     public ResponseEntity<JwtTokenDTO> authenticate(String token) {
         ClientRegistration googleClient = clientRegistrationRepository.findByRegistrationId(GOOGLE);
         Map<String, Object> attributes = oauth2WebClient.build()
@@ -89,7 +91,7 @@ public class SocialLoginService {
     private UserLogin executeUserRegistration(Map<String, Object> attributes, OidcIdToken idToken, OidcUserInfo userInfo, String email) {
         Role roleUser = roleRepository.findByName(RoleName.USER)
                 .orElseThrow(() -> new GenericNotFoundException("Role " + RoleName.USER));
-        return userRepository.save(
+        return userRepository.persist(
                         User.builder()
                                 .username(email)
                                 .email(email)
