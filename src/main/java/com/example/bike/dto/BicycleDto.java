@@ -12,5 +12,5 @@ import java.util.List;
  */
 public record BicycleDto(Instant createdAt, Instant updatedAt, Integer id, String name, String thumbnail,
                          List<String> images, JsonNode information, JsonNode suitableUser,
-                         JsonNode transmissionSystem, JsonNode frame, JsonNode wheelset) implements Serializable {
+                         JsonNode transmissionSystem, JsonNode frame, JsonNode wheelset, Integer categoryId) implements Serializable {
 }

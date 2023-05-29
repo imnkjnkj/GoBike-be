@@ -24,7 +24,7 @@ values  (22, 'MOUNTAIN BIKES', 'MOUNTAIN BIKES', 1, 1),
         (26, 'KID BIKES', 'KID BIKES', 1, 1);
 
 insert into public.bicycle (category_id, name, thumbnail, images, information, suitable_user, transmission_system, frame, wheelset) values
-  (22, 'Cannondale Trail 6 Bike', null, null, '{
+  (22, 'Cannondale Trail 6 Bike', 'https://i.imgur.com/e11Fbxh.png', '{"https://i.imgur.com/e11Fbxh.png","https://i.imgur.com/RvzTULc.png","https://i.imgur.com/3xq0Oio.png","https://i.imgur.com/J5DTvxu.png","https://i.imgur.com/X5WhtQW.png","https://i.imgur.com/N63LUGc.png"}', '{
     "paintMaterial": "Acrylic",
     "handlebarStemMaterial": "Aluminum alloy",
     "handlebar": "Straight handlebar",
@@ -63,7 +63,7 @@ insert into public.bicycle (category_id, name, thumbnail, images, information, s
     "valveType": "Presta",
     "brand": "Mavic"
   }'),
-  (23, 'Bike 8', null, null, '{
+  (23, 'Bike 8', 'https://i.imgur.com/e11Fbxh.png', '{"https://i.imgur.com/e11Fbxh.png","https://i.imgur.com/RvzTULc.png","https://i.imgur.com/3xq0Oio.png","https://i.imgur.com/J5DTvxu.png","https://i.imgur.com/X5WhtQW.png","https://i.imgur.com/N63LUGc.png"}', '{
     "paintMaterial": "Enamel",
     "handlebarStemMaterial": "Carbon fiber",
     "handlebar": "Drop bar",
@@ -102,7 +102,7 @@ insert into public.bicycle (category_id, name, thumbnail, images, information, s
     "valveType": "Presta",
     "brand": "DT Swiss"
   }'),
-  (24, 'Trail 9 Bike', null, null, '{
+  (24, 'Trail 9 Bike', 'https://i.imgur.com/e11Fbxh.png', '{"https://i.imgur.com/e11Fbxh.png","https://i.imgur.com/RvzTULc.png","https://i.imgur.com/3xq0Oio.png","https://i.imgur.com/J5DTvxu.png","https://i.imgur.com/X5WhtQW.png","https://i.imgur.com/N63LUGc.png"}', '{
     "paintMaterial": "Powder coat",
     "handlebarStemMaterial": "Aluminum alloy",
     "handlebar": "Riser bar",
@@ -141,7 +141,7 @@ insert into public.bicycle (category_id, name, thumbnail, images, information, s
     "valveType": "Schrader",
     "brand": "Bontrager"
   }'),
-  (25, 'Bike 9', null, null, ' {
+  (25, 'Bike 9','https://i.imgur.com/e11Fbxh.png', '{"https://i.imgur.com/e11Fbxh.png","https://i.imgur.com/RvzTULc.png","https://i.imgur.com/3xq0Oio.png","https://i.imgur.com/J5DTvxu.png","https://i.imgur.com/X5WhtQW.png","https://i.imgur.com/N63LUGc.png"}', '{
     "paintMaterial": "Matte finish",
     "handlebarStemMaterial": "Carbon fiber",
     "handlebar": "Flat bar",
@@ -180,7 +180,7 @@ insert into public.bicycle (category_id, name, thumbnail, images, information, s
     "valveType": "Presta",
     "brand": "Roval"
   }'),
-  (25, 'Bike 10', null, null, ' {
+  (25, 'Bike 10','https://i.imgur.com/e11Fbxh.png', '{"https://i.imgur.com/e11Fbxh.png","https://i.imgur.com/RvzTULc.png","https://i.imgur.com/3xq0Oio.png","https://i.imgur.com/J5DTvxu.png","https://i.imgur.com/X5WhtQW.png","https://i.imgur.com/N63LUGc.png"}', '{
     "paintMaterial": "Metallic finish",
     "handlebarStemMaterial": "Aluminum alloy",
     "handlebar": "Flat bar",
